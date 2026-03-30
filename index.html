@@ -1,0 +1,1786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Digital Fortress — Autonomous Crypto Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/>
+
+<style>
+/* ═══════════════════════════════════════════════════════════
+   DESIGN SYSTEM — Dark Financial Intelligence Terminal
+   Aesthetic: Bloomberg Terminal × Crypto War Room
+   Fonts: Syne (bold display) + JetBrains Mono (data/code) + Instrument Serif (accent)
+═══════════════════════════════════════════════════════════ */
+:root {
+  /* ── Core palette ── */
+  --bg:          #0A0A0F;
+  --bg-2:        #0F0F18;
+  --bg-3:        #141420;
+  --bg-4:        #1A1A2E;
+  --bg-card:     #11111C;
+  --bg-glass:    rgba(255,255,255,0.03);
+  --bg-glass-2:  rgba(255,255,255,0.06);
+
+  /* ── Amber accent — the "live signal" colour ── */
+  --amber:       #F5A623;
+  --amber-bright:#FFB938;
+  --amber-dim:   #A06B10;
+  --amber-glow:  rgba(245,166,35,0.15);
+  --amber-glow2: rgba(245,166,35,0.06);
+
+  /* ── Green — positive / bullish ── */
+  --green:       #00D68F;
+  --green-dim:   rgba(0,214,143,0.15);
+
+  /* ── Red — negative / bearish ── */
+  --red:         #FF4757;
+  --red-dim:     rgba(255,71,87,0.15);
+
+  /* ── Blue — info / neutral ── */
+  --blue:        #4DA6FF;
+  --blue-dim:    rgba(77,166,255,0.12);
+
+  /* ── Text ── */
+  --text-1:      #F0EEE8;
+  --text-2:      #9E9C96;
+  --text-3:      #5E5C58;
+  --text-4:      #3A3835;
+
+  /* ── Borders ── */
+  --border:      rgba(255,255,255,0.06);
+  --border-2:    rgba(255,255,255,0.10);
+  --border-amber:rgba(245,166,35,0.25);
+
+  /* ── Typography ── */
+  --font-display: 'Syne', sans-serif;
+  --font-mono:    'JetBrains Mono', 'Courier New', monospace;
+  --font-serif:   'Instrument Serif', Georgia, serif;
+
+  /* ── Shadows ── */
+  --shadow-sm:  0 1px 4px rgba(0,0,0,0.4);
+  --shadow-md:  0 4px 24px rgba(0,0,0,0.5);
+  --shadow-lg:  0 12px 48px rgba(0,0,0,0.6);
+  --shadow-amber: 0 0 32px rgba(245,166,35,0.12);
+
+  /* ── Radius ── */
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 14px;
+  --r-xl: 24px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text-1);
+  font-family: var(--font-display);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ═══════════════════════════════════════════════
+   BACKGROUND — Scanline + Grid + Radial glow
+═══════════════════════════════════════════════ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(245,166,35,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 85% 80%, rgba(77,166,255,0.04) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ═══════════════════════════════════════════════
+   LAYOUT
+═══════════════════════════════════════════════ */
+.wrapper {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 32px 120px;
+}
+
+/* ═══════════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════════ */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px 0 0;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.nav-icon {
+  width: 38px;
+  height: 38px;
+  background: linear-gradient(135deg, var(--amber), var(--amber-dim));
+  border-radius: var(--r-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  box-shadow: var(--shadow-amber);
+  flex-shrink: 0;
+}
+
+.nav-name {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+  color: var(--text-1);
+}
+
+.nav-name span {
+  color: var(--amber);
+}
+
+.nav-tagline {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-3);
+  letter-spacing: 0.08em;
+  margin-top: 2px;
+}
+
+.nav-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--green);
+  letter-spacing: 0.06em;
+  background: rgba(0,214,143,0.06);
+  border: 1px solid rgba(0,214,143,0.15);
+  padding: 6px 14px;
+  border-radius: 100px;
+}
+
+.pulse {
+  width: 6px;
+  height: 6px;
+  background: var(--green);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.4; transform: scale(0.8); }
+}
+
+/* ═══════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════ */
+.hero {
+  padding: 80px 0 64px;
+  text-align: center;
+}
+
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  color: var(--amber);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hero-eyebrow::before,
+.hero-eyebrow::after {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: var(--amber-dim);
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.6rem, 5vw, 4.2rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+  color: var(--text-1);
+}
+
+.hero-title em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--amber);
+  font-weight: 400;
+}
+
+.hero-sub {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--text-2);
+  line-height: 1.8;
+  max-width: 540px;
+  margin: 0 auto 40px;
+  letter-spacing: 0.01em;
+}
+
+/* ── Stat strip ── */
+.stat-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  background: var(--bg-card);
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.stat-item {
+  flex: 1;
+  padding: 18px 20px;
+  border-right: 1px solid var(--border);
+  text-align: center;
+}
+
+.stat-item:last-child { border-right: none; }
+
+.stat-val {
+  font-family: var(--font-mono);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--amber);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+/* ═══════════════════════════════════════════════
+   MAIN PANEL — 2 column
+═══════════════════════════════════════════════ */
+.main-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 56px;
+}
+
+/* ═══════════════════════════════════════════════
+   CARD BASE
+═══════════════════════════════════════════════ */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.25s;
+}
+
+.card:hover { border-color: var(--border-2); }
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+
+.card-title {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-title::before {
+  content: '';
+  display: block;
+  width: 3px;
+  height: 12px;
+  background: var(--amber);
+  border-radius: 2px;
+}
+
+.badge {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  padding: 3px 8px;
+  border-radius: 100px;
+  font-weight: 500;
+}
+
+.badge-live {
+  background: var(--green-dim);
+  color: var(--green);
+  border: 1px solid rgba(0,214,143,0.2);
+}
+
+.badge-amber {
+  background: var(--amber-glow);
+  color: var(--amber);
+  border: 1px solid var(--border-amber);
+}
+
+/* ═══════════════════════════════════════════════
+   CONTROL PANEL (LEFT TOP) — Run Intelligence Cycle
+═══════════════════════════════════════════════ */
+.control-card {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+/* Agents list */
+.agents-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.agent-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.agent-row:hover {
+  background: var(--bg-glass-2);
+  border-color: var(--border-amber);
+}
+
+.agent-row.active {
+  background: var(--amber-glow2);
+  border-color: var(--amber-dim);
+}
+
+.agent-row.running {
+  border-color: var(--amber);
+  background: var(--amber-glow2);
+  animation: runningPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes runningPulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(245,166,35,0); }
+  50%      { box-shadow: 0 0 0 4px rgba(245,166,35,0.08); }
+}
+
+.agent-row.done {
+  border-color: rgba(0,214,143,0.2);
+  background: rgba(0,214,143,0.03);
+}
+
+.agent-row.error {
+  border-color: rgba(255,71,87,0.3);
+  background: rgba(255,71,87,0.04);
+}
+
+.agent-num {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: var(--text-4);
+  width: 18px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.agent-info { flex: 1; }
+
+.agent-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.82rem;
+  color: var(--text-1);
+  margin-bottom: 2px;
+}
+
+.agent-desc {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--text-3);
+  letter-spacing: 0.03em;
+}
+
+.agent-status-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--bg-3);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  flex-shrink: 0;
+  transition: all 0.3s;
+}
+
+.agent-status-icon.spin {
+  animation: spin 1s linear infinite;
+  border-color: var(--amber);
+  border-top-color: transparent;
+  background: transparent;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.agent-status-icon.ok  { background: var(--green-dim); border-color: rgba(0,214,143,0.3); color: var(--green); }
+.agent-status-icon.err { background: var(--red-dim); border-color: rgba(255,71,87,0.3); color: var(--red); }
+
+/* Main run button */
+.btn-run {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, var(--amber), #D4871A);
+  border: none;
+  border-radius: var(--r-md);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: 0.05em;
+  color: #0A0A0F;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-run::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.btn-run:hover:not(:disabled)::before { opacity: 1; }
+.btn-run:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(245,166,35,0.3); }
+.btn-run:active:not(:disabled) { transform: translateY(0); }
+.btn-run:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btn-secondary {
+  width: 100%;
+  padding: 13px;
+  background: var(--bg-glass);
+  border: 1px solid var(--border-2);
+  border-radius: var(--r-md);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.82rem;
+  letter-spacing: 0.03em;
+  color: var(--text-2);
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 10px;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: var(--bg-glass-2);
+  color: var(--text-1);
+  border-color: var(--border-amber);
+}
+
+.btn-secondary:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ═══════════════════════════════════════════════
+   OUTPUT TERMINAL (RIGHT TOP)
+═══════════════════════════════════════════════ */
+.terminal-card {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  display: flex;
+  flex-direction: column;
+}
+
+.terminal-body {
+  flex: 1;
+  background: #080810;
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 16px;
+  min-height: 400px;
+  max-height: 560px;
+  overflow-y: auto;
+  font-family: var(--font-mono);
+  font-size: 0.73rem;
+  line-height: 1.75;
+  letter-spacing: 0.01em;
+}
+
+.terminal-line {
+  display: flex;
+  gap: 10px;
+  animation: termFadeIn 0.3s ease;
+}
+
+@keyframes termFadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.term-time {
+  color: var(--text-4);
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.term-text { flex: 1; word-break: break-word; }
+.term-text.info    { color: var(--text-2); }
+.term-text.success { color: var(--green); }
+.term-text.warn    { color: var(--amber); }
+.term-text.error   { color: var(--red); }
+.term-text.muted   { color: var(--text-3); }
+.term-text.data    { color: var(--blue); }
+
+.term-prompt {
+  color: var(--amber);
+  flex-shrink: 0;
+}
+
+.terminal-cursor {
+  display: inline-block;
+  width: 7px;
+  height: 13px;
+  background: var(--amber);
+  vertical-align: middle;
+  margin-left: 2px;
+  animation: blink 1.1s step-end infinite;
+}
+
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+
+/* ── terminal scrollbar ── */
+.terminal-body::-webkit-scrollbar { width: 4px; }
+.terminal-body::-webkit-scrollbar-track { background: transparent; }
+.terminal-body::-webkit-scrollbar-thumb { background: var(--text-4); border-radius: 2px; }
+
+/* ═══════════════════════════════════════════════
+   INVESTOR PANEL (LEFT BOTTOM)
+═══════════════════════════════════════════════ */
+.investor-card {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.form-row.full { grid-template-columns: 1fr; }
+
+.field label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 6px;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  background: var(--bg-3);
+  border: 1px solid var(--border-2);
+  border-radius: var(--r-sm);
+  padding: 10px 12px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-1);
+  outline: none;
+  transition: border-color 0.2s;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.field input::placeholder { color: var(--text-4); }
+
+.field input:focus,
+.field select:focus {
+  border-color: var(--amber-dim);
+}
+
+.field select option {
+  background: var(--bg-4);
+  color: var(--text-1);
+}
+
+/* Coins multi-select pills */
+.coins-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.coin-pill {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  background: var(--bg-3);
+  border: 1px solid var(--border-2);
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 0.63rem;
+  letter-spacing: 0.04em;
+  color: var(--text-2);
+  cursor: pointer;
+  transition: all 0.18s;
+  user-select: none;
+}
+
+.coin-pill:hover { border-color: var(--border-amber); color: var(--amber); }
+
+.coin-pill.selected {
+  background: var(--amber-glow);
+  border-color: var(--amber-dim);
+  color: var(--amber);
+}
+
+.coin-pill .dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* ── Investor list ── */
+.investor-list {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 160px;
+  overflow-y: auto;
+}
+
+.investor-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+}
+
+.investor-avatar {
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, var(--amber-dim), var(--bg-4));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.7rem;
+  color: var(--amber);
+  flex-shrink: 0;
+}
+
+.investor-info { flex: 1; min-width: 0; }
+
+.investor-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.78rem;
+  color: var(--text-1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.investor-meta {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  color: var(--text-3);
+  letter-spacing: 0.03em;
+}
+
+.risk-tag {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  padding: 2px 7px;
+  border-radius: 3px;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.risk-HIGH    { background: rgba(255,71,87,0.12);   color: var(--red);   }
+.risk-MEDIUM  { background: rgba(245,166,35,0.12);  color: var(--amber); }
+.risk-LOW     { background: rgba(0,214,143,0.10);   color: var(--green); }
+
+/* ═══════════════════════════════════════════════
+   ALERTS FEED — Full width below the grid
+═══════════════════════════════════════════════ */
+.alerts-section {
+  margin-top: 20px;
+  grid-column: 1 / -1;
+}
+
+.alerts-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.alert-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 16px 20px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  animation: alertSlide 0.4s ease;
+  transition: border-color 0.2s;
+}
+
+@keyframes alertSlide {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.alert-card:hover { border-color: var(--border-2); }
+.alert-card.HIGH     { border-left-color: var(--red); }
+.alert-card.CRITICAL { border-left-color: var(--red); background: rgba(255,71,87,0.03); }
+.alert-card.MEDIUM   { border-left-color: var(--amber); }
+.alert-card.LOW      { border-left-color: var(--green); }
+
+.alert-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.alert-body { flex: 1; min-width: 0; }
+
+.alert-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+}
+
+.alert-coin {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--text-1);
+}
+
+.alert-type-tag {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  padding: 2px 7px;
+  border-radius: 3px;
+  background: var(--bg-3);
+  color: var(--text-3);
+}
+
+.alert-severity {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 2px 7px;
+  border-radius: 3px;
+  margin-left: auto;
+}
+
+.sev-HIGH     { background: var(--red-dim);   color: var(--red);   }
+.sev-CRITICAL { background: var(--red-dim);   color: var(--red);   }
+.sev-MEDIUM   { background: var(--amber-glow); color: var(--amber); }
+.sev-LOW      { background: var(--green-dim); color: var(--green); }
+
+.alert-desc {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-2);
+  line-height: 1.6;
+}
+
+.alert-time {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  color: var(--text-4);
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+/* ── Empty state ── */
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-4);
+  letter-spacing: 0.04em;
+}
+
+.empty-state .big { font-size: 1.8rem; margin-bottom: 10px; }
+
+/* ═══════════════════════════════════════════════
+   DAILY BRIEFING SECTION
+═══════════════════════════════════════════════ */
+.briefing-section {
+  margin-top: 20px;
+}
+
+.briefing-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 28px;
+}
+
+.briefing-content {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--text-2);
+  line-height: 1.9;
+  white-space: pre-wrap;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.briefing-content .heading {
+  color: var(--amber);
+  font-weight: 600;
+  font-size: 0.78rem;
+}
+
+/* ═══════════════════════════════════════════════
+   PROGRESS BAR
+═══════════════════════════════════════════════ */
+.progress-wrap {
+  height: 2px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  display: none;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--amber-dim), var(--amber));
+  border-radius: 2px;
+  transition: width 0.5s ease;
+  width: 0%;
+}
+
+/* ═══════════════════════════════════════════════
+   TOAST
+═══════════════════════════════════════════════ */
+.toast-area {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toast {
+  background: var(--bg-card);
+  border: 1px solid var(--border-2);
+  border-radius: var(--r-md);
+  padding: 14px 18px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-1);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: toastIn 0.3s ease;
+  max-width: 320px;
+}
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.toast.success { border-left: 3px solid var(--green); }
+.toast.error   { border-left: 3px solid var(--red); }
+.toast.info    { border-left: 3px solid var(--amber); }
+
+/* ═══════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════ */
+footer {
+  text-align: center;
+  padding: 40px 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.63rem;
+  color: var(--text-4);
+  letter-spacing: 0.06em;
+  line-height: 1.8;
+}
+
+footer span { color: var(--text-3); }
+
+/* ═══════════════════════════════════════════════
+   SCROLLBAR global
+═══════════════════════════════════════════════ */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--text-4); border-radius: 2px; }
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════ */
+@media (max-width: 860px) {
+  .main-grid {
+    grid-template-columns: 1fr;
+  }
+  .terminal-card { grid-column: 1; grid-row: auto; }
+  .wrapper { padding: 0 20px 80px; }
+  .form-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ── Toast Area ── -->
+<div class="toast-area" id="toastArea"></div>
+
+<div class="wrapper">
+
+  <!-- ═══ NAV ═══ -->
+  <nav>
+    <div class="nav-brand">
+      <div class="nav-icon">🏰</div>
+      <div>
+        <div class="nav-name">Digital<span>Fortress</span></div>
+        <div class="nav-tagline">AUTONOMOUS CRYPTO INTELLIGENCE</div>
+      </div>
+    </div>
+    <div class="nav-status">
+      <div class="pulse"></div>
+      SYSTEM ACTIVE
+    </div>
+  </nav>
+
+  <!-- ═══ HERO ═══ -->
+  <div class="hero">
+    <div class="hero-eyebrow">Powered by Amazon Bedrock AgentCore · Claude 3.5 Sonnet v2</div>
+    <h1 class="hero-title">
+      Crypto markets,<br/>
+      <em>watched for you.</em>
+    </h1>
+    <p class="hero-sub">
+      5 autonomous agents monitor prices, news sentiment, whale movements and macro events —
+      then deliver structured trade alerts directly to your inbox. You stay in control of execution.
+    </p>
+    <div class="stat-strip">
+      <div class="stat-item">
+        <span class="stat-val">8</span>
+        <span class="stat-label">Coins Tracked</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-val">5</span>
+        <span class="stat-label">AI Agents</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-val">3</span>
+        <span class="stat-label">News Feeds</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-val" id="alertCount">0</span>
+        <span class="stat-label">Alerts Sent</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ MAIN GRID ═══ -->
+  <div class="main-grid">
+
+    <!-- ── LEFT TOP: Control Panel ── -->
+    <div class="card control-card">
+      <div class="card-header">
+        <div class="card-title">Intelligence Cycle</div>
+        <div class="badge badge-live" id="cycleStatus">READY</div>
+      </div>
+
+      <!-- Progress bar -->
+      <div class="progress-wrap" id="progressWrap">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+
+      <!-- Agent rows -->
+      <div class="agents-list" id="agentsList">
+        <!-- Populated by JS -->
+      </div>
+
+      <!-- Run button -->
+      <button class="btn-run" id="btnRunCycle" onclick="runFullCycle()">
+        ⚡ Run Intelligence Cycle
+      </button>
+      <button class="btn-secondary" id="btnDailyBriefing" onclick="runDailyBriefing()">
+        📊 Send Daily Briefing
+      </button>
+    </div>
+
+    <!-- ── RIGHT: Terminal Output ── -->
+    <div class="card terminal-card">
+      <div class="card-header">
+        <div class="card-title">Live Output</div>
+        <div class="badge badge-amber" id="termBadge">IDLE</div>
+      </div>
+      <div class="terminal-body" id="terminal">
+        <div class="terminal-line">
+          <span class="term-prompt">$</span>
+          <span class="term-text muted">Digital Fortress Agent System — Initialised</span>
+        </div>
+        <div class="terminal-line">
+          <span class="term-time">--:--:--</span>
+          <span class="term-text muted">Awaiting instruction. Configure agents, then run a cycle.</span>
+        </div>
+        <div class="terminal-line">
+          <span class="term-time">&nbsp;</span>
+          <span class="term-text muted">──────────────────────────────────────────</span>
+        </div>
+        <span class="terminal-cursor" id="cursor"></span>
+      </div>
+    </div>
+
+    <!-- ── LEFT BOTTOM: Investor Registration ── -->
+    <div class="card investor-card">
+      <div class="card-header">
+        <div class="card-title">Investor Profiles</div>
+        <div class="badge badge-amber" id="investorCount">0 REGISTERED</div>
+      </div>
+
+      <!-- Registration form -->
+      <div class="form-row">
+        <div class="field">
+          <label>Full Name</label>
+          <input type="text" id="invName" placeholder="David Ifelolu"/>
+        </div>
+        <div class="field">
+          <label>Email</label>
+          <input type="email" id="invEmail" placeholder="you@example.com"/>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="field">
+          <label>Risk Tolerance</label>
+          <select id="invRisk">
+            <option value="HIGH">HIGH — All alerts</option>
+            <option value="MEDIUM">MEDIUM — Medium + High</option>
+            <option value="LOW">LOW — Low severity only</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Investor ID</label>
+          <input type="text" id="invId" placeholder="INV-001"/>
+        </div>
+      </div>
+
+      <div class="field" style="margin-bottom:14px;">
+        <label>Preferred Coins <span style="color:var(--text-4);font-size:.55rem;">(leave all unselected = watch all)</span></label>
+        <div class="coins-grid" id="coinsGrid"></div>
+      </div>
+
+      <button class="btn-run" onclick="registerInvestor()" style="font-size:.8rem;padding:12px;">
+        + Register Investor
+      </button>
+
+      <!-- Investor list -->
+      <div class="investor-list" id="investorList">
+        <div class="empty-state" style="padding:20px 0;">
+          <div style="font-size:1.2rem;margin-bottom:6px;">👤</div>
+          No investors registered yet
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ═══ ALERTS FEED ═══ -->
+  <div class="card alerts-section" style="margin-top:20px;">
+    <div class="card-header">
+      <div class="card-title">Alert Feed</div>
+      <div class="badge badge-live" id="feedBadge">LIVE</div>
+    </div>
+    <div class="alerts-feed" id="alertsFeed">
+      <div class="empty-state">
+        <div class="big">🔍</div>
+        No alerts detected yet. Run an intelligence cycle to begin monitoring.
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ DAILY BRIEFING OUTPUT ═══ -->
+  <div class="card briefing-section" id="briefingSection" style="display:none;">
+    <div class="card-header">
+      <div class="card-title">Daily Market Briefing</div>
+      <div class="badge badge-amber" id="briefingTime">—</div>
+    </div>
+    <div class="briefing-content" id="briefingContent"></div>
+  </div>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <div>Digital Fortress Solution · Autonomous Crypto Market Intelligence</div>
+    <div><span>Built by DigitSpot Solutions</span> · Powered by Amazon Bedrock AgentCore · Claude 3.5 Sonnet v2</div>
+    <div style="margin-top:6px;">thedigifortress.com · oladimejiifeloludavid@gmail.com</div>
+  </footer>
+
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════════════
+// CONFIGURATION — Update these values after deploying your Lambda functions
+//
+// HOW TO GET YOUR LAMBDA FUNCTION URL:
+//   aws lambda get-function-url-config \
+//     --function-name digitalfortress-api-proxy \
+//     --region us-east-1 \
+//     --query "FunctionUrl" --output text
+//
+// Paste the URL returned from that command into LAMBDA_URL below.
+// It will look like: https://xxxxxxxx.lambda-url.us-east-1.on.aws/
+//
+// Each agent ARN comes from the 'agentcore launch' output in the notebook.
+// You can also list them with:
+//   aws bedrock-agentcore list-agent-runtimes --region us-east-1
+// ═══════════════════════════════════════════════════════════════════════════
+const CONFIG = {
+  LAMBDA_URL: 'YOUR_LAMBDA_FUNCTION_URL_HERE',   // ← REPLACE THIS
+
+  AGENT_ARNS: {
+    marketMonitor:  'YOUR_MARKET_MONITOR_AGENT_ARN_HERE',    // ← Agent 1 ARN
+    newsSentiment:  'YOUR_NEWS_SENTIMENT_AGENT_ARN_HERE',    // ← Agent 2 ARN
+    alertGenerator: 'YOUR_ALERT_GENERATOR_AGENT_ARN_HERE',   // ← Agent 3 ARN
+    notification:   'YOUR_NOTIFICATION_AGENT_ARN_HERE',      // ← Agent 4 ARN
+    analytics:      'YOUR_ANALYTICS_AGENT_ARN_HERE',         // ← Agent 5 ARN
+  },
+};
+
+// ═══════════════════════════════════════════════════════════════════════════
+// AGENT DEFINITIONS — display metadata for the UI
+// ═══════════════════════════════════════════════════════════════════════════
+const AGENTS = [
+  { id: 'marketMonitor',  label: 'Market Monitor',         desc: 'CoinGecko price scan · Breakout detection',   icon: '📡' },
+  { id: 'newsSentiment',  label: 'News & Sentiment',       desc: 'RSS feeds · Macro event detection',            icon: '📰' },
+  { id: 'alertGenerator', label: 'Alert Generator',        desc: 'Signal synthesis · Risk rating · Alert compose', icon: '🧠' },
+  { id: 'notification',   label: 'Notification',           desc: 'Investor filtering · Personalised delivery',   icon: '📬' },
+  { id: 'analytics',      label: 'Analytics & Reporting',  desc: 'Daily briefing · Portfolio summaries',         icon: '📊' },
+];
+
+const COINS = [
+  { id: 'bitcoin',    label: 'BTC' },
+  { id: 'ethereum',   label: 'ETH' },
+  { id: 'binancecoin',label: 'BNB' },
+  { id: 'solana',     label: 'SOL' },
+  { id: 'ripple',     label: 'XRP' },
+  { id: 'cardano',    label: 'ADA' },
+  { id: 'polkadot',   label: 'DOT' },
+  { id: 'dogecoin',   label: 'DOGE' },
+];
+
+// ═══════════════════════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════════════════════
+let investors       = [];
+let alerts          = [];
+let alertCount      = 0;
+let selectedCoins   = new Set();
+let cycleRunning    = false;
+
+// ═══════════════════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+  buildAgentList();
+  buildCoinsPills();
+  loadFromStorage();
+});
+
+// ─────────────────────────────────────────────────────────────────────────
+// Build the agent rows in the control panel
+// ─────────────────────────────────────────────────────────────────────────
+function buildAgentList() {
+  const container = document.getElementById('agentsList');
+  container.innerHTML = '';
+  AGENTS.forEach((agent, i) => {
+    const row = document.createElement('div');
+    row.className = 'agent-row';
+    row.id = `agent-row-${agent.id}`;
+    row.innerHTML = `
+      <span class="agent-num">${String(i+1).padStart(2,'0')}</span>
+      <div class="agent-info">
+        <div class="agent-name">${agent.icon} ${agent.label}</div>
+        <div class="agent-desc">${agent.desc}</div>
+      </div>
+      <div class="agent-status-icon" id="agent-icon-${agent.id}">—</div>
+    `;
+    container.appendChild(row);
+  });
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// Build coin pills selector
+// ─────────────────────────────────────────────────────────────────────────
+function buildCoinsPills() {
+  const grid = document.getElementById('coinsGrid');
+  grid.innerHTML = '';
+  COINS.forEach(coin => {
+    const pill = document.createElement('div');
+    pill.className = 'coin-pill';
+    pill.dataset.id = coin.id;
+    pill.innerHTML = `<span class="dot"></span>${coin.label}`;
+    pill.addEventListener('click', () => {
+      if (selectedCoins.has(coin.id)) {
+        selectedCoins.delete(coin.id);
+        pill.classList.remove('selected');
+      } else {
+        selectedCoins.add(coin.id);
+        pill.classList.add('selected');
+      }
+    });
+    grid.appendChild(pill);
+  });
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// LocalStorage persistence
+// ─────────────────────────────────────────────────────────────────────────
+function saveToStorage() {
+  localStorage.setItem('df_investors', JSON.stringify(investors));
+  localStorage.setItem('df_alerts', JSON.stringify(alerts));
+  localStorage.setItem('df_alertCount', alertCount);
+}
+
+function loadFromStorage() {
+  const inv = localStorage.getItem('df_investors');
+  const alt = localStorage.getItem('df_alerts');
+  const cnt = localStorage.getItem('df_alertCount');
+  if (inv)  { investors   = JSON.parse(inv); renderInvestors(); }
+  if (alt)  { alerts      = JSON.parse(alt); renderAlerts(); }
+  if (cnt)  { alertCount  = parseInt(cnt,10) || 0; document.getElementById('alertCount').textContent = alertCount; }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// TERMINAL LOGGING
+// ═══════════════════════════════════════════════════════════════════════════
+function termLog(text, type = 'info', showPrompt = false) {
+  const terminal = document.getElementById('terminal');
+  const cursor   = document.getElementById('cursor');
+
+  const now = new Date();
+  const ts  = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
+
+  const line = document.createElement('div');
+  line.className = 'terminal-line';
+  line.innerHTML = `
+    <span class="${showPrompt ? 'term-prompt' : 'term-time'}">${showPrompt ? '$' : ts}</span>
+    <span class="term-text ${type}">${escHtml(text)}</span>
+  `;
+
+  // Insert before cursor
+  if (cursor && cursor.parentNode === terminal) {
+    terminal.insertBefore(line, cursor);
+  } else {
+    terminal.appendChild(line);
+  }
+
+  terminal.scrollTop = terminal.scrollHeight;
+}
+
+function termDivider() {
+  termLog('──────────────────────────────────────────────────', 'muted');
+}
+
+function escHtml(str) {
+  return String(str)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;');
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// AGENT STATE MANAGEMENT (UI only)
+// ═══════════════════════════════════════════════════════════════════════════
+function setAgentState(agentId, state) {
+  // state: 'idle' | 'running' | 'done' | 'error'
+  const row  = document.getElementById(`agent-row-${agentId}`);
+  const icon = document.getElementById(`agent-icon-${agentId}`);
+  if (!row || !icon) return;
+
+  row.className = `agent-row ${state === 'idle' ? '' : state}`;
+
+  switch (state) {
+    case 'running':
+      icon.className = 'agent-status-icon spin';
+      icon.textContent = '';
+      break;
+    case 'done':
+      icon.className = 'agent-status-icon ok';
+      icon.textContent = '✓';
+      break;
+    case 'error':
+      icon.className = 'agent-status-icon err';
+      icon.textContent = '✕';
+      break;
+    default:
+      icon.className = 'agent-status-icon';
+      icon.textContent = '—';
+  }
+}
+
+function resetAllAgents() {
+  AGENTS.forEach(a => setAgentState(a.id, 'idle'));
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// PROGRESS BAR
+// ═══════════════════════════════════════════════════════════════════════════
+function setProgress(pct) {
+  const wrap = document.getElementById('progressWrap');
+  const bar  = document.getElementById('progressBar');
+  wrap.style.display = 'block';
+  bar.style.width    = `${pct}%`;
+  if (pct >= 100) setTimeout(() => { wrap.style.display = 'none'; bar.style.width = '0%'; }, 800);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// LAMBDA INVOCATION
+// ═══════════════════════════════════════════════════════════════════════════
+async function invokeAgent(agentKey, payload) {
+  /*
+   * invokeAgent sends a POST request to your Lambda proxy function.
+   * The Lambda takes the agentRuntimeArn + payload and forwards it
+   * to AgentCore, signs the request (AWS SigV4), and returns the response.
+   *
+   * The browser cannot sign AWS requests directly — that's why we need
+   * the Lambda as a middle layer.
+   *
+   * The payload shape matches what setup_infra.py / agentcore expects:
+   *   { agentRuntimeArn: '...', payload: { action: '...' } }
+   */
+  const arn = CONFIG.AGENT_ARNS[agentKey];
+  if (!arn || arn.includes('YOUR_')) {
+    throw new Error(`ARN not configured for agent: ${agentKey}. Update CONFIG.AGENT_ARNS in index.html.`);
+  }
+
+  const response = await fetch(CONFIG.LAMBDA_URL, {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body:    JSON.stringify({ agentRuntimeArn: arn, payload }),
+  });
+
+  if (!response.ok) {
+    const err = await response.text();
+    throw new Error(`Lambda error ${response.status}: ${err}`);
+  }
+
+  return await response.json();
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// RUN FULL INTELLIGENCE CYCLE
+// ═══════════════════════════════════════════════════════════════════════════
+async function runFullCycle() {
+  if (cycleRunning) return;
+
+  // Check config
+  if (CONFIG.LAMBDA_URL.includes('YOUR_')) {
+    showToast('Configure LAMBDA_URL in index.html first', 'error');
+    termLog('ERROR: LAMBDA_URL not configured. Edit the CONFIG block at the top of the script.', 'error');
+    return;
+  }
+
+  cycleRunning = true;
+  const btn    = document.getElementById('btnRunCycle');
+  const status = document.getElementById('cycleStatus');
+
+  btn.disabled    = true;
+  btn.textContent = '⟳ Running...';
+  status.textContent = 'RUNNING';
+  status.className   = 'badge badge-amber';
+  document.getElementById('termBadge').textContent = 'ACTIVE';
+
+  resetAllAgents();
+  termDivider();
+  termLog('Intelligence cycle initiated', 'warn', true);
+  termLog(`Timestamp: ${new Date().toISOString()}`, 'muted');
+  termDivider();
+
+  // Ordered pipeline: Monitor → Sentiment → Generator → Notification
+  const pipeline = [
+    { key: 'marketMonitor',  action: 'scan_market',      label: 'Market Monitor' },
+    { key: 'newsSentiment',  action: 'scan_news',         label: 'News Sentiment' },
+    { key: 'alertGenerator', action: 'generate_alerts',   label: 'Alert Generator' },
+    { key: 'notification',   action: 'deliver_alerts',    label: 'Notification' },
+  ];
+
+  let step = 0;
+  for (const stage of pipeline) {
+    step++;
+    setProgress((step / pipeline.length) * 90);
+    setAgentState(stage.key, 'running');
+    termLog(`[${step}/${pipeline.length}] Invoking ${stage.label}...`, 'warn');
+
+    try {
+      const result = await invokeAgent(stage.key, { action: stage.action });
+      setAgentState(stage.key, 'done');
+      termLog(`✓ ${stage.label} complete`, 'success');
+
+      // Parse and display any alert data in the result
+      if (result && result.output) {
+        const lines = result.output.split('\n').filter(l => l.trim());
+        lines.slice(0, 6).forEach(l => termLog(`  ${l}`, 'data'));
+      }
+
+      // If alert generator returned alerts, add them to the feed
+      if (stage.key === 'alertGenerator' && result) {
+        parseAndAddAlerts(result);
+      }
+
+    } catch (err) {
+      setAgentState(stage.key, 'error');
+      termLog(`✕ ${stage.label} failed: ${err.message}`, 'error');
+    }
+
+    await sleep(500);
+  }
+
+  setProgress(100);
+  status.textContent = 'COMPLETE';
+  status.className   = 'badge badge-live';
+  document.getElementById('termBadge').textContent = 'IDLE';
+  btn.disabled    = false;
+  btn.textContent = '⚡ Run Intelligence Cycle';
+  cycleRunning    = false;
+
+  termDivider();
+  termLog('Cycle complete. Check ifelolud@gmail.com for alerts.', 'success');
+  showToast('Intelligence cycle complete!', 'success');
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// DAILY BRIEFING
+// ═══════════════════════════════════════════════════════════════════════════
+async function runDailyBriefing() {
+  if (cycleRunning) return;
+
+  if (CONFIG.LAMBDA_URL.includes('YOUR_')) {
+    showToast('Configure LAMBDA_URL first', 'error');
+    return;
+  }
+
+  const btn = document.getElementById('btnDailyBriefing');
+  btn.disabled    = true;
+  btn.textContent = '⟳ Generating...';
+  cycleRunning    = true;
+
+  setAgentState('analytics', 'running');
+  termDivider();
+  termLog('Daily briefing requested', 'warn', true);
+
+  try {
+    const result = await invokeAgent('analytics', { action: 'daily_briefing' });
+    setAgentState('analytics', 'done');
+    termLog('✓ Daily briefing generated and sent', 'success');
+
+    // Show briefing output in the briefing section
+    if (result && result.output) {
+      const section  = document.getElementById('briefingSection');
+      const content  = document.getElementById('briefingContent');
+      const timeTag  = document.getElementById('briefingTime');
+      section.style.display = 'block';
+      content.textContent   = result.output;
+      timeTag.textContent   = new Date().toLocaleTimeString();
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    showToast('Daily briefing sent to subscribers!', 'success');
+
+  } catch (err) {
+    setAgentState('analytics', 'error');
+    termLog(`✕ Briefing failed: ${err.message}`, 'error');
+    showToast('Briefing failed — check console', 'error');
+  }
+
+  btn.disabled    = false;
+  btn.textContent = '📊 Send Daily Briefing';
+  cycleRunning    = false;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// INVESTOR REGISTRATION
+// Stores profiles locally (they've already been pushed to DynamoDB
+// by the notebook's register_investor() call — this is the UI mirror)
+// ═══════════════════════════════════════════════════════════════════════════
+function registerInvestor() {
+  const name  = document.getElementById('invName').value.trim();
+  const email = document.getElementById('invEmail').value.trim();
+  const risk  = document.getElementById('invRisk').value;
+  const id    = document.getElementById('invId').value.trim();
+
+  if (!name || !email || !id) {
+    showToast('Fill in Name, Email, and Investor ID', 'error');
+    return;
+  }
+
+  // Check for duplicate ID
+  if (investors.some(inv => inv.id === id)) {
+    showToast(`Investor ${id} already exists`, 'error');
+    return;
+  }
+
+  const investor = {
+    id,
+    name,
+    email,
+    risk,
+    coins: [...selectedCoins],
+    registeredAt: new Date().toISOString(),
+  };
+
+  investors.push(investor);
+  renderInvestors();
+  saveToStorage();
+
+  // Clear form
+  document.getElementById('invName').value  = '';
+  document.getElementById('invEmail').value = '';
+  document.getElementById('invId').value    = '';
+  selectedCoins.clear();
+  document.querySelectorAll('.coin-pill').forEach(p => p.classList.remove('selected'));
+
+  termLog(`Investor registered: ${name} (${id}) — Risk: ${risk}`, 'success');
+  showToast(`${name} registered successfully`, 'success');
+}
+
+function renderInvestors() {
+  const list = document.getElementById('investorList');
+  const badge = document.getElementById('investorCount');
+
+  badge.textContent = `${investors.length} REGISTERED`;
+
+  if (!investors.length) {
+    list.innerHTML = `
+      <div class="empty-state" style="padding:20px 0;">
+        <div style="font-size:1.2rem;margin-bottom:6px;">👤</div>
+        No investors registered yet
+      </div>`;
+    return;
+  }
+
+  list.innerHTML = investors.map(inv => `
+    <div class="investor-row">
+      <div class="investor-avatar">${inv.name[0].toUpperCase()}</div>
+      <div class="investor-info">
+        <div class="investor-name">${escHtml(inv.name)}</div>
+        <div class="investor-meta">${escHtml(inv.email)} · ${escHtml(inv.id)}</div>
+      </div>
+      <div class="risk-tag risk-${inv.risk}">${inv.risk}</div>
+    </div>
+  `).join('');
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// ALERT FEED
+// ═══════════════════════════════════════════════════════════════════════════
+function parseAndAddAlerts(agentResult) {
+  /*
+   * Try to extract alert data from the agent's response.
+   * The Alert Generator agent returns text — we scan for structured
+   * signals and add them to the UI feed.
+   * This is a best-effort parse; the authoritative record is DynamoDB.
+   */
+  const text = agentResult.output || JSON.stringify(agentResult);
+
+  // Look for severity keywords in the output to auto-generate feed items
+  const severities = ['CRITICAL','HIGH','MEDIUM','LOW'];
+  const signalTypes = ['PRICE_BREAKOUT','SENTIMENT_SHIFT','MACRO_EVENT','VOLUME_SPIKE'];
+
+  let foundSeverity = null;
+  let foundType     = null;
+
+  for (const s of severities) {
+    if (text.toUpperCase().includes(s)) { foundSeverity = s; break; }
+  }
+  for (const t of signalTypes) {
+    if (text.toUpperCase().includes(t)) { foundType = t; break; }
+  }
+
+  if (foundSeverity && foundType) {
+    addAlertToFeed({
+      severity:    foundSeverity,
+      type:        foundType,
+      coin:        extractCoin(text),
+      description: text.slice(0, 180).trim(),
+      timestamp:   new Date().toISOString(),
+    });
+  }
+}
+
+function extractCoin(text) {
+  const coinNames = ['bitcoin','ethereum','solana','ripple','cardano','dogecoin','binancecoin','polkadot'];
+  const upper     = ['Bitcoin','Ethereum','Solana','Ripple','Cardano','Dogecoin','BNB','Polkadot'];
+  for (let i = 0; i < coinNames.length; i++) {
+    if (text.toLowerCase().includes(coinNames[i])) return upper[i];
+  }
+  return 'Market';
+}
+
+function addAlertToFeed(alert) {
+  // Remove empty state
+  const feed = document.getElementById('alertsFeed');
+  if (feed.querySelector('.empty-state')) feed.innerHTML = '';
+
+  alerts.unshift(alert);
+  alertCount++;
+  document.getElementById('alertCount').textContent = alertCount;
+
+  const iconMap = { CRITICAL:'🚨', HIGH:'⚠️', MEDIUM:'📊', LOW:'ℹ️' };
+  const card    = document.createElement('div');
+  card.className = `alert-card ${alert.severity}`;
+  card.innerHTML = `
+    <div class="alert-icon">${iconMap[alert.severity] || '📡'}</div>
+    <div class="alert-body">
+      <div class="alert-top">
+        <span class="alert-coin">${escHtml(alert.coin)}</span>
+        <span class="alert-type-tag">${escHtml(alert.type)}</span>
+        <span class="alert-severity sev-${alert.severity}">${alert.severity}</span>
+      </div>
+      <div class="alert-desc">${escHtml(alert.description)}</div>
+    </div>
+    <div class="alert-time">${new Date(alert.timestamp).toLocaleTimeString()}</div>
+  `;
+  feed.prepend(card);
+  saveToStorage();
+}
+
+// Manual alert injection for testing
+function addTestAlert() {
+  addAlertToFeed({
+    severity:    'HIGH',
+    type:        'PRICE_BREAKOUT',
+    coin:        'Bitcoin',
+    description: 'BTC moved +5.2% in 24h. Price: $71,200. Volume spike detected across major exchanges. Cross-reference with bullish news sentiment from this morning\'s scan.',
+    timestamp:   new Date().toISOString(),
+  });
+  showToast('Test alert injected', 'info');
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// RENDER ALERTS
+// ═══════════════════════════════════════════════════════════════════════════
+function renderAlerts() {
+  if (!alerts.length) return;
+  const feed = document.getElementById('alertsFeed');
+  feed.innerHTML  = '';
+  const iconMap   = { CRITICAL:'🚨', HIGH:'⚠️', MEDIUM:'📊', LOW:'ℹ️' };
+
+  alerts.slice(0, 20).forEach(alert => {
+    const card = document.createElement('div');
+    card.className = `alert-card ${alert.severity}`;
+    card.innerHTML = `
+      <div class="alert-icon">${iconMap[alert.severity] || '📡'}</div>
+      <div class="alert-body">
+        <div class="alert-top">
+          <span class="alert-coin">${escHtml(alert.coin)}</span>
+          <span class="alert-type-tag">${escHtml(alert.type)}</span>
+          <span class="alert-severity sev-${alert.severity}">${alert.severity}</span>
+        </div>
+        <div class="alert-desc">${escHtml(alert.description)}</div>
+      </div>
+      <div class="alert-time">${new Date(alert.timestamp).toLocaleTimeString()}</div>
+    `;
+    feed.appendChild(card);
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// TOAST NOTIFICATIONS
+// ═══════════════════════════════════════════════════════════════════════════
+function showToast(message, type = 'info') {
+  const area  = document.getElementById('toastArea');
+  const icons = { success: '✓', error: '✕', info: '⚡' };
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.innerHTML = `<span>${icons[type]}</span><span>${escHtml(message)}</span>`;
+  area.appendChild(toast);
+  setTimeout(() => toast.remove(), 4000);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// UTILITY
+// ═══════════════════════════════════════════════════════════════════════════
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+</script>
+</body>
+</html>
